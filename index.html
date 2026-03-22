@@ -372,6 +372,15 @@
             transform: scale(1.05);
         }
 
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: var(--muted2);
+            border-color: var(--muted2);
+            color: var(--void);
+        }
+
         /* Stats Bar */
         .stats-bar {
             display: flex;
@@ -1053,7 +1062,7 @@
         <div class="typing-text">> INITIALIZING SECURE CONNECTION... ACCESS GRANTED_</div>
         <p class="subtitle">Complete privacy suite with encrypted storage, private browser, secure messaging, and real cryptocurrency. Built by cypherpunks, for everyone who values freedom.</p>
         <div class="cta-buttons">
-            <a href="https://linktr.ee/ciph.official" class="btn btn-primary">Download App</a>
+            <span class="btn btn-primary btn-disabled">Coming Soon</span>
             <a href="#ecosystem" class="btn btn-secondary">Explore Ecosystem</a>
         </div>
     </section>
