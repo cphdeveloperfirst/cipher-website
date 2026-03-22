@@ -23,8 +23,11 @@
             --green-glow: rgba(0, 220, 130, 0.6);
             --gold: #F0B429;
             --blue: #4DA6FF;
+            --red: #FF4D6A;
             --text: #E8F4EE;
-            --muted: #4A6355;
+            --text-bright: #FFFFFF;
+            --muted: #8BA89A;
+            --muted2: #6B8F7A;
         }
 
         body {
@@ -111,25 +114,7 @@
                 transparent 1px,
                 transparent 2px
             );
-            opacity: 0.3;
-        }
-
-        /* Glitch Effect */
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitchColor {
-            0% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
-            25% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff; }
-            50% { text-shadow: 2px 2px #ff0000, -2px -2px #00ffff; }
-            75% { text-shadow: -2px 2px #ff0000, 2px -2px #00ffff; }
-            100% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
+            opacity: 0.2;
         }
 
         .container {
@@ -182,7 +167,7 @@
         }
 
         .nav-links a {
-            color: var(--muted);
+            color: var(--text);
             text-decoration: none;
             font-size: 14px;
             letter-spacing: 2px;
@@ -300,7 +285,7 @@
 
         .hero .subtitle {
             font-size: 18px;
-            color: var(--muted);
+            color: var(--text);
             max-width: 700px;
             margin: 0 auto 60px;
             line-height: 1.8;
@@ -413,11 +398,132 @@
         }
 
         .stat-label {
-            font-size: 12px;
-            color: var(--muted);
+            font-size: 14px;
+            color: var(--text);
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-top: 10px;
+        }
+
+        /* Privacy Suite Section */
+        .privacy-suite {
+            padding: 120px 20px;
+            background: linear-gradient(180deg, var(--void), rgba(0, 220, 130, 0.02), var(--void));
+        }
+
+        .suite-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 1024px) {
+            .suite-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .suite-card {
+            background: linear-gradient(135deg, var(--card), var(--deep));
+            border: 2px solid rgba(0, 220, 130, 0.2);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+
+        .suite-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green), var(--blue));
+        }
+
+        .suite-card:hover {
+            border-color: var(--green);
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(0, 220, 130, 0.25);
+        }
+
+        .suite-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .suite-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px var(--green-glow));
+        }
+
+        .suite-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--green-glow);
+        }
+
+        .suite-card .subtitle {
+            font-size: 14px;
+            color: var(--blue);
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .suite-card p {
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .suite-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .suite-features li {
+            color: var(--text);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 220, 130, 0.1);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .suite-features li:last-child {
+            border-bottom: none;
+        }
+
+        .suite-features li::before {
+            content: '▹';
+            color: var(--green);
+            font-size: 18px;
+            text-shadow: 0 0 10px var(--green-glow);
+        }
+
+        .encryption-badge {
+            display: inline-block;
+            background: rgba(0, 220, 130, 0.1);
+            border: 1px solid var(--green);
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--green);
+            letter-spacing: 2px;
+            margin-top: 20px;
         }
 
         /* Features */
@@ -434,15 +540,15 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 48px;
             font-weight: 900;
-            color: var(--text);
+            color: var(--text-bright);
             letter-spacing: 5px;
             text-transform: uppercase;
             margin-bottom: 20px;
         }
 
         .section-header p {
-            color: var(--muted);
-            font-size: 16px;
+            color: var(--text);
+            font-size: 18px;
             letter-spacing: 2px;
         }
 
@@ -528,9 +634,9 @@
         }
 
         .feature-card p {
-            color: var(--muted);
-            line-height: 1.8;
-            font-size: 15px;
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 16px;
         }
 
         /* Tokenomics */
@@ -585,8 +691,8 @@
         }
 
         .token-stat .label {
-            color: var(--muted);
-            font-size: 12px;
+            color: var(--text);
+            font-size: 14px;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -609,8 +715,8 @@
         }
 
         .total-supply .label {
-            font-size: 14px;
-            color: var(--muted);
+            font-size: 16px;
+            color: var(--text);
             letter-spacing: 4px;
             text-transform: uppercase;
             margin-top: 15px;
@@ -701,8 +807,8 @@
         }
 
         .founder p {
-            color: var(--muted);
-            font-size: 12px;
+            color: var(--text);
+            font-size: 14px;
             letter-spacing: 3px;
             margin-top: 10px;
             text-transform: uppercase;
@@ -725,7 +831,7 @@
         }
 
         .social-links a {
-            color: var(--muted);
+            color: var(--text);
             text-decoration: none;
             font-size: 14px;
             letter-spacing: 3px;
@@ -753,7 +859,7 @@
         }
 
         .copyright {
-            color: var(--muted);
+            color: var(--text);
             font-size: 14px;
             letter-spacing: 4px;
         }
@@ -807,12 +913,10 @@
             .total-supply .big-number {
                 font-size: 36px;
             }
-        }
 
-        /* Glowing border animation */
-        @keyframes borderGlow {
-            0%, 100% { box-shadow: 0 0 5px var(--green), inset 0 0 5px var(--green); }
-            50% { box-shadow: 0 0 20px var(--green), inset 0 0 10px var(--green); }
+            .suite-card h3 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
@@ -833,6 +937,7 @@
                 <span class="logo-text">CIPHER</span>
             </div>
             <nav class="nav-links">
+                <a href="#ecosystem">Ecosystem</a>
                 <a href="#features">Features</a>
                 <a href="#tokenomics">Tokenomics</a>
                 <a href="#team">Team</a>
@@ -857,10 +962,10 @@
         <h1>Privacy Ecosystem</h1>
         <p class="tagline">Your Data. Your Rules. Your Freedom.</p>
         <div class="typing-text">> INITIALIZING SECURE CONNECTION... ACCESS GRANTED_</div>
-        <p class="subtitle">Mine $CIPH tokens, raid other players, and join the movement. No banks. No permissions. Just pure mathematics and cryptographic truth.</p>
+        <p class="subtitle">Complete privacy suite with encrypted storage, private browser, secure messaging, and real cryptocurrency. Built by cypherpunks, for everyone who values freedom.</p>
         <div class="cta-buttons">
             <a href="https://linktr.ee/ciph.official" class="btn btn-primary">Download App</a>
-            <a href="#tokenomics" class="btn btn-secondary">Learn More</a>
+            <a href="#ecosystem" class="btn btn-secondary">Explore Ecosystem</a>
         </div>
     </section>
 
@@ -878,8 +983,90 @@
             <span class="stat-label">Team Vesting</span>
         </div>
         <div class="stat-item">
-            <span class="stat-value">100%</span>
-            <span class="stat-label">Transparent</span>
+            <span class="stat-value">E2E</span>
+            <span class="stat-label">Encrypted</span>
+        </div>
+    </section>
+
+    <!-- Privacy Ecosystem Section -->
+    <section class="privacy-suite" id="ecosystem">
+        <div class="container">
+            <div class="section-header">
+                <h2>Privacy Suite</h2>
+                <p>Military-grade encryption for your digital life. All tools. One ecosystem.</p>
+            </div>
+            <div class="suite-grid">
+                <!-- VAULT -->
+                <div class="suite-card">
+                    <div class="suite-icon">
+                        <svg viewBox="0 0 120 120">
+                            <rect x="20" y="35" width="80" height="65" rx="5" fill="none" stroke="#00DC82" stroke-width="3"/>
+                            <circle cx="60" cy="67" r="15" fill="none" stroke="#00DC82" stroke-width="2"/>
+                            <line x1="60" y1="52" x2="60" y2="40" stroke="#00DC82" stroke-width="3"/>
+                            <circle cx="60" cy="35" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
+                            <rect x="50" y="62" width="20" height="10" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Cipher Vault</h3>
+                    <p class="subtitle">Encrypted Storage</p>
+                    <p>Your private digital safe. Store passwords, documents, photos, and sensitive data with military-grade encryption. Only YOU have the key.</p>
+                    <ul class="suite-features">
+                        <li>AES-256 encryption</li>
+                        <li>Biometric authentication</li>
+                        <li>Zero-knowledge architecture</li>
+                        <li>Secure notes & files</li>
+                    </ul>
+                    <span class="encryption-badge">AES-256-GCM</span>
+                </div>
+
+                <!-- TUNNEL -->
+                <div class="suite-card">
+                    <div class="suite-icon">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="40" fill="none" stroke="#00DC82" stroke-width="3"/>
+                            <circle cx="60" cy="60" r="25" fill="none" stroke="#00DC82" stroke-width="2"/>
+                            <circle cx="60" cy="60" r="10" fill="none" stroke="#00DC82" stroke-width="2"/>
+                            <line x1="60" y1="20" x2="60" y2="35" stroke="#00DC82" stroke-width="2"/>
+                            <line x1="60" y1="85" x2="60" y2="100" stroke="#00DC82" stroke-width="2"/>
+                            <line x1="20" y1="60" x2="35" y2="60" stroke="#00DC82" stroke-width="2"/>
+                            <line x1="85" y1="60" x2="100" y2="60" stroke="#00DC82" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Cipher Tunnel</h3>
+                    <p class="subtitle">Private Browser</p>
+                    <p>Browse the web without leaving traces. Built-in tracker blocker, private search, and automatic data cleaning. Your browsing history stays yours.</p>
+                    <ul class="suite-features">
+                        <li>DuckDuckGo integration</li>
+                        <li>Tracker & ad blocking</li>
+                        <li>Auto history wipe</li>
+                        <li>Incognito by default</li>
+                    </ul>
+                    <span class="encryption-badge">HTTPS ONLY</span>
+                </div>
+
+                <!-- E2E CHAT -->
+                <div class="suite-card">
+                    <div class="suite-icon">
+                        <svg viewBox="0 0 120 120">
+                            <path d="M25,35 L95,35 L95,80 L70,80 L55,95 L55,80 L25,80 Z" fill="none" stroke="#00DC82" stroke-width="3"/>
+                            <rect x="40" y="50" width="10" height="10" fill="#00DC82"/>
+                            <rect x="55" y="50" width="10" height="10" fill="#00DC82"/>
+                            <rect x="70" y="50" width="10" height="10" fill="#00DC82"/>
+                            <path d="M35,45 L35,30 L85,30 L85,40" fill="none" stroke="#00DC82" stroke-width="2" stroke-dasharray="5,3"/>
+                        </svg>
+                    </div>
+                    <h3>Cipher Chat</h3>
+                    <p class="subtitle">E2E Messaging</p>
+                    <p>Messages that self-destruct. End-to-end encrypted conversations that even WE cannot read. Perfect forward secrecy. No metadata logging.</p>
+                    <ul class="suite-features">
+                        <li>NaCl encryption (Curve25519)</li>
+                        <li>Self-destructing messages</li>
+                        <li>No server-side storage</li>
+                        <li>Anonymous accounts</li>
+                    </ul>
+                    <span class="encryption-badge">XSALSA20-POLY1305</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -887,7 +1074,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Why Cipher?</h2>
-                <p>The future of privacy is not a feature. It's a foundation.</p>
+                <p>Not just a crypto app. A complete ecosystem for the privacy-conscious generation.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
@@ -898,7 +1085,7 @@
                         <line x1="40" y1="30" x2="40" y2="20" stroke="#00DC82" stroke-width="2"/>
                     </svg>
                     <h3>Free Mining</h3>
-                    <p>Mine $CIPH tokens every 6 hours. Real cryptocurrency powered by blockchain. No equipment needed. The earlier you join, the more you earn through our halving mechanism.</p>
+                    <p>Mine $CIPH tokens every 6 hours. Real cryptocurrency on BNB Smart Chain. No equipment needed. The earlier you join, the more you earn through our halving mechanism.</p>
                 </div>
                 <div class="feature-card">
                     <span class="feature-number">02</span>
@@ -910,7 +1097,7 @@
                         <circle cx="40" cy="12" r="5" fill="none" stroke="#00DC82" stroke-width="2"/>
                     </svg>
                     <h3>KYC Shield</h3>
-                    <p>We verify humans, not identities. Advanced KYC keeps bots and farms out while preserving your privacy. Your coins stay protected from fake accounts and manipulation.</p>
+                    <p>We verify humans, not identities. Advanced KYC keeps bots and farms out while preserving your privacy. Your coins stay protected from manipulation and fake accounts.</p>
                 </div>
                 <div class="feature-card">
                     <span class="feature-number">03</span>
@@ -919,7 +1106,7 @@
                         <path d="M25,40 L35,50 L55,30" fill="none" stroke="#00DC82" stroke-width="3"/>
                     </svg>
                     <h3>DAO Voting</h3>
-                    <p>You decide when we list. One human equals one vote. No whales controlling the future. True decentralization where the community shapes every major decision.</p>
+                    <p>Community decides everything. When to list on exchanges? YOU vote. One human = one vote. No whales, no manipulation. True decentralized governance.</p>
                 </div>
                 <div class="feature-card">
                     <span class="feature-number">04</span>
@@ -928,7 +1115,7 @@
                         <path d="M30,35 L50,35 L55,45 L40,60 L25,45 Z" fill="none" stroke="#F0B429" stroke-width="2"/>
                     </svg>
                     <h3>Raid System</h3>
-                    <p>Strategic gameplay meets crypto economics. Attack other players, defend your vault, and compete for dominance. Use energy wisely to maximize your gains.</p>
+                    <p>Strategic gameplay meets crypto. Attack inactive players, defend your vault, compete for dominance. Coins never leave the ecosystem — they just change hands.</p>
                 </div>
                 <div class="feature-card">
                     <span class="feature-number">05</span>
@@ -937,8 +1124,8 @@
                         <line x1="10" y1="35" x2="70" y2="35" stroke="#00DC82" stroke-width="2"/>
                         <rect x="20" y="45" width="40" height="10" rx="2" fill="none" stroke="#00DC82" stroke-width="1"/>
                     </svg>
-                    <h3>Transparent</h3>
-                    <p>65% of all tokens go to the community. All wallets are public on BscScan. Team tokens locked for 3 years with transparent vesting. Verify everything yourself.</p>
+                    <h3>100% Transparent</h3>
+                    <p>65% of all tokens go to the community. All wallets public on BscScan. Team tokens locked 3 years. Open source. Verify everything yourself.</p>
                 </div>
                 <div class="feature-card">
                     <span class="feature-number">06</span>
@@ -950,7 +1137,7 @@
                         <path d="M62,55 L62,62 L48,62" fill="none" stroke="#00DC82" stroke-width="2"/>
                     </svg>
                     <h3>P2P Market</h3>
-                    <p>Trade items and resources directly with other players. No middlemen, no fees to centralized exchanges. Pure peer-to-peer economy powered by $CIPH.</p>
+                    <p>Trade directly with other players. No middlemen, no centralized exchange fees. Pure peer-to-peer economy powered by $CIPH. You own your trades.</p>
                 </div>
             </div>
         </div>
@@ -960,11 +1147,11 @@
         <div class="container">
             <div class="section-header">
                 <h2>$CIPH Tokenomics</h2>
-                <p>Fixed supply. No inflation. Mathematical certainty.</p>
+                <p>Fixed supply forever. No inflation. Mathematical certainty you can verify.</p>
             </div>
             <div class="total-supply">
                 <span class="big-number">21,000,000,000</span>
-                <p class="label">Total Supply — Fixed Forever</p>
+                <p class="label">Total Supply — Fixed Forever on BNB Smart Chain</p>
             </div>
             <div class="token-info">
                 <div class="token-stat">
@@ -999,7 +1186,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>The Founders</h2>
-                <p>Three who saw the system from inside. Banks. Corporations. Lies. Now they build different.</p>
+                <p>Three who saw the system from inside. Banks. Corporations. Surveillance. Now they build different.</p>
             </div>
             <div class="founders-grid">
                 <div class="founder">
@@ -1089,14 +1276,12 @@
                 const x = i * fontSize;
                 const y = drops[i] * fontSize;
 
-                // Gradient effect - brighter at the head
                 const brightness = Math.min(1, (canvas.height - y) / canvas.height + 0.3);
                 const green = Math.floor(220 * brightness);
                 ctx.fillStyle = `rgba(0, ${green}, 130, ${brightness * 0.8})`;
                 ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
                 ctx.fillText(char, x, y);
 
-                // Add glow effect for some characters
                 if (Math.random() > 0.98) {
                     ctx.shadowBlur = 20;
                     ctx.shadowColor = '#00DC82';
@@ -1140,33 +1325,6 @@
             });
         });
 
-        // Typing effect restart
-        const typingText = document.querySelector('.typing-text');
-        setInterval(() => {
-            typingText.style.animation = 'none';
-            setTimeout(() => {
-                typingText.style.animation = 'typing 4s steps(50, end) infinite';
-            }, 100);
-        }, 8000);
-
-        // Counter animation for stats
-        function animateValue(element, start, end, duration) {
-            const range = end - start;
-            const startTime = performance.now();
-
-            function update(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const value = Math.floor(start + (range * progress));
-                element.textContent = value + (element.dataset.suffix || '');
-
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                }
-            }
-            requestAnimationFrame(update);
-        }
-
         // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1177,7 +1335,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.feature-card, .token-stat, .founder').forEach(el => {
+        document.querySelectorAll('.feature-card, .token-stat, .founder, .suite-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.6s ease-out';
