@@ -7,20 +7,35 @@
     <meta name="description" content="CIPHER - Your data. Your rules. Your freedom. Mine $CIPH tokens and join the privacy revolution.">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%2300DC82' stroke-width='4'/></svg>">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --void: #03060A;
+            --deep: #070D14;
+            --card: #0C1520;
+            --green: #00DC82;
+            --green-glow: rgba(0, 220, 130, 0.6);
+            --gold: #F0B429;
+            --blue: #4DA6FF;
+            --text: #E8F4EE;
+            --muted: #4A6355;
+        }
+
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #03060A;
-            color: #E8F4EE;
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--void);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
+        /* Matrix Background */
         .matrix-bg {
             position: fixed;
             top: 0;
@@ -28,335 +43,792 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            opacity: 0.15;
             z-index: 0;
+        }
+
+        /* Cyber Grid */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 220, 130, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 220, 130, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green), 0 0 20px var(--green);
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; transform: translateY(90vh) scale(1); }
+            90% { opacity: 1; transform: translateY(10vh) scale(1); }
+            100% { transform: translateY(0vh) scale(0); opacity: 0; }
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.3;
+        }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitchColor {
+            0% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
+            25% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff; }
+            50% { text-shadow: 2px 2px #ff0000, -2px -2px #00ffff; }
+            75% { text-shadow: -2px 2px #ff0000, 2px -2px #00ffff; }
+            100% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
         }
 
         .container {
             position: relative;
-            z-index: 1;
-            max-width: 1200px;
+            z-index: 10;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
+        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(0, 220, 130, 0.1);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .logo-hex {
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
+            animation: pulse 2s ease-in-out infinite, rotate3d 10s linear infinite;
+            filter: drop-shadow(0 0 15px var(--green-glow));
+        }
+
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
         .logo-text {
-            font-size: 28px;
-            font-weight: 700;
-            color: #00DC82;
-            letter-spacing: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--green);
+            letter-spacing: 8px;
+            text-shadow: 0 0 20px var(--green-glow), 0 0 40px var(--green-glow);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
         }
 
         .nav-links a {
-            color: #6B8F7A;
+            color: var(--muted);
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.3s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green);
+            box-shadow: 0 0 10px var(--green);
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
-            color: #00DC82;
+            color: var(--green);
+            text-shadow: 0 0 10px var(--green-glow);
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
         .hero {
             text-align: center;
-            padding: 100px 20px;
+            padding: 120px 20px 150px;
+            position: relative;
         }
 
-        .hero-hexagon {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 40px;
+        .hero-hexagon-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto 60px;
+        }
+
+        .hex-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             animation: pulse 3s ease-in-out infinite;
         }
 
+        .hex-ring:nth-child(1) { animation-delay: 0s; }
+        .hex-ring:nth-child(2) { animation-delay: 0.5s; }
+        .hex-ring:nth-child(3) { animation-delay: 1s; }
+
         @keyframes pulse {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 220, 130, 0.5)); }
-            50% { filter: drop-shadow(0 0 40px rgba(0, 220, 130, 0.8)); }
+            0%, 100% {
+                filter: drop-shadow(0 0 20px var(--green-glow));
+                opacity: 1;
+            }
+            50% {
+                filter: drop-shadow(0 0 50px var(--green-glow)) drop-shadow(0 0 80px var(--green-glow));
+                opacity: 0.8;
+            }
+        }
+
+        .hero-cipher-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--green);
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px var(--green-glow), 0 0 60px var(--green-glow);
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         .hero h1 {
-            font-size: 64px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #00DC82, #4DA6FF);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--green), var(--blue), var(--green));
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 5s ease infinite;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .hero .tagline {
-            font-size: 24px;
-            color: #6B8F7A;
-            margin-bottom: 40px;
+            font-size: 28px;
+            color: var(--green);
+            margin-bottom: 20px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--green-glow);
         }
 
         .hero .subtitle {
             font-size: 18px;
-            color: #4A6355;
-            max-width: 600px;
-            margin: 0 auto 50px;
-            line-height: 1.6;
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            line-height: 1.8;
+            letter-spacing: 1px;
         }
 
+        .typing-text {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto 40px;
+            letter-spacing: 3px;
+            animation: typing 4s steps(40, end) infinite;
+            color: var(--green);
+            font-size: 16px;
+        }
+
+        @keyframes typing {
+            0%, 100% { width: 0; }
+            50%, 90% { width: 100%; }
+        }
+
+        /* Buttons */
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 16px 40px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 20px 50px;
+            border-radius: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
             text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
-            background: #00DC82;
-            color: #03060A;
-            border: none;
+            background: var(--green);
+            color: var(--void);
+            border: 2px solid var(--green);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
         }
 
         .btn-primary:hover {
-            background: #00ff96;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 220, 130, 0.3);
+            background: transparent;
+            color: var(--green);
+            box-shadow: 0 0 30px var(--green-glow), inset 0 0 30px rgba(0, 220, 130, 0.1);
+            transform: scale(1.05);
         }
 
         .btn-secondary {
             background: transparent;
-            color: #00DC82;
-            border: 2px solid rgba(0, 220, 130, 0.3);
+            color: var(--green);
+            border: 2px solid var(--green);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
         }
 
         .btn-secondary:hover {
-            border-color: #00DC82;
             background: rgba(0, 220, 130, 0.1);
+            box-shadow: 0 0 30px var(--green-glow);
+            transform: scale(1.05);
         }
 
-        .features {
-            padding: 100px 20px;
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, transparent, rgba(0, 220, 130, 0.05), transparent);
+            border-top: 1px solid rgba(0, 220, 130, 0.1);
+            border-bottom: 1px solid rgba(0, 220, 130, 0.1);
+            flex-wrap: wrap;
         }
 
-        .features h2 {
+        .stat-item {
             text-align: center;
-            font-size: 42px;
-            margin-bottom: 60px;
-            color: #E8F4EE;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--green);
+            text-shadow: 0 0 20px var(--green-glow);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        /* Features */
+        .features {
+            padding: 120px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: 16px;
+            letter-spacing: 2px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
 
         .feature-card {
-            background: #0C1520;
-            border: 1px solid rgba(0, 220, 130, 0.12);
-            border-radius: 16px;
-            padding: 40px;
-            transition: all 0.3s;
+            background: linear-gradient(135deg, var(--card), var(--deep));
+            border: 1px solid rgba(0, 220, 130, 0.15);
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 220, 130, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-card:hover {
-            border-color: rgba(0, 220, 130, 0.3);
-            transform: translateY(-5px);
+            border-color: var(--green);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 220, 130, 0.2), 0 0 100px rgba(0, 220, 130, 0.1);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--green);
+            box-shadow: 0 0 20px var(--green);
+            transition: height 0.5s;
+        }
+
+        .feature-card:hover::after {
+            height: 100%;
+        }
+
+        .feature-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            color: rgba(0, 220, 130, 0.1);
+            position: absolute;
+            top: 20px;
+            right: 30px;
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 15px var(--green-glow));
         }
 
         .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #00DC82;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .feature-card p {
-            color: #6B8F7A;
-            line-height: 1.6;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 15px;
         }
 
+        /* Tokenomics */
         .tokenomics {
-            padding: 100px 20px;
-            background: #070D14;
+            padding: 120px 20px;
+            background: linear-gradient(180deg, var(--void), var(--deep), var(--void));
+            position: relative;
         }
 
-        .tokenomics h2 {
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-
-        .tokenomics .subtitle {
-            text-align: center;
-            color: #6B8F7A;
-            margin-bottom: 60px;
+        .tokenomics::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
         }
 
         .token-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .token-stat {
             text-align: center;
-            padding: 30px;
-            background: #0C1520;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 220, 130, 0.12);
+            padding: 40px 30px;
+            background: var(--card);
+            border: 1px solid rgba(0, 220, 130, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .token-stat:hover {
+            border-color: var(--green);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 220, 130, 0.2);
         }
 
         .token-stat .value {
-            font-size: 36px;
-            font-weight: 700;
-            color: #00DC82;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--green);
+            text-shadow: 0 0 20px var(--green-glow);
+            margin-bottom: 15px;
+            display: block;
         }
 
         .token-stat .label {
-            color: #6B8F7A;
-            font-size: 14px;
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .founders {
-            padding: 100px 20px;
+        .total-supply {
             text-align: center;
-        }
-
-        .founders h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-
-        .founders .subtitle {
-            color: #6B8F7A;
             margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 40px;
+            border: 2px solid rgba(0, 220, 130, 0.2);
+            background: rgba(0, 220, 130, 0.02);
+        }
+
+        .total-supply .big-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--green);
+            text-shadow: 0 0 30px var(--green-glow);
+            letter-spacing: 5px;
+        }
+
+        .total-supply .label {
+            font-size: 14px;
+            color: var(--muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        /* Team */
+        .founders {
+            padding: 120px 20px;
+            text-align: center;
         }
 
         .founders-grid {
             display: flex;
             justify-content: center;
-            gap: 60px;
+            gap: 100px;
             flex-wrap: wrap;
+            margin-top: 80px;
         }
 
         .founder {
             text-align: center;
+            position: relative;
         }
 
-        .founder-icon {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-            opacity: 0.8;
+        .founder-icon-container {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            margin: 0 auto 30px;
+        }
+
+        .founder-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+
+        .founder-ring:nth-child(2) {
+            width: 130px;
+            height: 130px;
+            animation-delay: 0.5s;
+            opacity: 0.5;
+        }
+
+        .founder-ring:nth-child(3) {
+            width: 110px;
+            height: 110px;
+            animation-delay: 1s;
+            opacity: 0.3;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 20px var(--green-glow);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                box-shadow: 0 0 40px var(--green-glow);
+            }
+        }
+
+        .founder-symbol {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--green);
+            text-shadow: 0 0 20px var(--green-glow);
         }
 
         .founder h3 {
-            font-size: 24px;
-            color: #00DC82;
-            letter-spacing: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: var(--green);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--green-glow);
         }
 
+        .founder p {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
         footer {
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
-            border-top: 1px solid rgba(0, 220, 130, 0.12);
+            border-top: 1px solid rgba(0, 220, 130, 0.1);
+            background: linear-gradient(180deg, var(--void), var(--deep));
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 50px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
-            color: #6B8F7A;
+            color: var(--muted);
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.3s;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            padding: 15px 25px;
+            border: 1px solid transparent;
         }
 
         .social-links a:hover {
-            color: #00DC82;
+            color: var(--green);
+            border-color: var(--green);
+            box-shadow: 0 0 20px var(--green-glow);
+            text-shadow: 0 0 10px var(--green-glow);
+        }
+
+        .footer-logo {
+            margin-bottom: 30px;
+        }
+
+        .footer-logo svg {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 0 20px var(--green-glow));
         }
 
         .copyright {
-            color: #4A6355;
+            color: var(--muted);
             font-size: 14px;
+            letter-spacing: 4px;
         }
 
         .copyright span {
-            color: #00DC82;
+            color: var(--green);
+            text-shadow: 0 0 10px var(--green-glow);
         }
 
+        .encrypt-text {
+            margin-top: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--green);
+            letter-spacing: 6px;
+            text-shadow: 0 0 15px var(--green-glow);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 42px;
+                font-size: 36px;
+                letter-spacing: 4px;
             }
 
             .hero .tagline {
                 font-size: 18px;
+                letter-spacing: 3px;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .features h2, .tokenomics h2, .founders h2 {
+            .section-header h2 {
                 font-size: 32px;
             }
+
+            .stat-value {
+                font-size: 32px;
+            }
+
+            .stats-bar {
+                gap: 40px;
+            }
+
+            .founders-grid {
+                gap: 60px;
+            }
+
+            .total-supply .big-number {
+                font-size: 36px;
+            }
+        }
+
+        /* Glowing border animation */
+        @keyframes borderGlow {
+            0%, 100% { box-shadow: 0 0 5px var(--green), inset 0 0 5px var(--green); }
+            50% { box-shadow: 0 0 20px var(--green), inset 0 0 10px var(--green); }
         }
     </style>
 </head>
 <body>
     <canvas class="matrix-bg" id="matrix"></canvas>
+    <div class="cyber-grid"></div>
+    <div class="particles" id="particles"></div>
+    <div class="scanlines"></div>
 
     <div class="container">
         <header>
             <div class="logo">
                 <svg class="logo-hex" viewBox="0 0 100 100">
-                    <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#00DC82" stroke-width="3"/>
-                    <text x="50" y="58" text-anchor="middle" fill="#00DC82" font-size="20" font-weight="bold">C</text>
+                    <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#00DC82" stroke-width="2"/>
+                    <polygon points="50,15 85,32.5 85,67.5 50,85 15,67.5 15,32.5" fill="none" stroke="#00DC82" stroke-width="1" opacity="0.5"/>
+                    <text x="50" y="58" text-anchor="middle" fill="#00DC82" font-size="24" font-weight="bold" font-family="Orbitron">C</text>
                 </svg>
                 <span class="logo-text">CIPHER</span>
             </div>
@@ -370,78 +842,115 @@
     </div>
 
     <section class="hero">
-        <svg class="hero-hexagon" viewBox="0 0 200 200">
-            <polygon points="100,10 190,55 190,145 100,190 10,145 10,55" fill="none" stroke="#00DC82" stroke-width="3"/>
-            <polygon points="100,30 170,65 170,135 100,170 30,135 30,65" fill="none" stroke="#00DC82" stroke-width="2" opacity="0.5"/>
-            <polygon points="100,50 150,75 150,125 100,150 50,125 50,75" fill="none" stroke="#00DC82" stroke-width="1" opacity="0.3"/>
-            <text x="100" y="110" text-anchor="middle" fill="#00DC82" font-size="36" font-weight="bold">CIPHER</text>
-        </svg>
+        <div class="hero-hexagon-container">
+            <svg class="hex-ring" width="350" height="350" viewBox="0 0 350 350">
+                <polygon points="175,20 330,95 330,255 175,330 20,255 20,95" fill="none" stroke="#00DC82" stroke-width="2"/>
+            </svg>
+            <svg class="hex-ring" width="280" height="280" viewBox="0 0 280 280" style="width: 280px; height: 280px;">
+                <polygon points="140,15 265,77 265,203 140,265 15,203 15,77" fill="none" stroke="#00DC82" stroke-width="1.5" opacity="0.6"/>
+            </svg>
+            <svg class="hex-ring" width="210" height="210" viewBox="0 0 210 210" style="width: 210px; height: 210px;">
+                <polygon points="105,10 200,57 200,153 105,200 10,153 10,57" fill="none" stroke="#00DC82" stroke-width="1" opacity="0.3"/>
+            </svg>
+            <span class="hero-cipher-text">CIPHER</span>
+        </div>
         <h1>Privacy Ecosystem</h1>
-        <p class="tagline">Your data. Your rules. Your freedom.</p>
-        <p class="subtitle">Mine $CIPH tokens, raid other players, and join the movement. No banks. No permissions. Just mathematics.</p>
+        <p class="tagline">Your Data. Your Rules. Your Freedom.</p>
+        <div class="typing-text">> INITIALIZING SECURE CONNECTION... ACCESS GRANTED_</div>
+        <p class="subtitle">Mine $CIPH tokens, raid other players, and join the movement. No banks. No permissions. Just pure mathematics and cryptographic truth.</p>
         <div class="cta-buttons">
             <a href="https://linktr.ee/ciph.official" class="btn btn-primary">Download App</a>
             <a href="#tokenomics" class="btn btn-secondary">Learn More</a>
         </div>
     </section>
 
+    <section class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-value">21B</span>
+            <span class="stat-label">Total Supply</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">65%</span>
+            <span class="stat-label">For Community</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">3 YRS</span>
+            <span class="stat-label">Team Vesting</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">Transparent</span>
+        </div>
+    </section>
+
     <section class="features" id="features">
         <div class="container">
-            <h2>Why CIPHER?</h2>
+            <div class="section-header">
+                <h2>Why Cipher?</h2>
+                <p>The future of privacy is not a feature. It's a foundation.</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 60 60">
-                        <polygon points="30,5 55,20 55,50 30,65 5,50 5,20" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <circle cx="30" cy="35" r="10" fill="none" stroke="#00DC82" stroke-width="2"/>
+                    <span class="feature-number">01</span>
+                    <svg class="feature-icon" viewBox="0 0 80 80">
+                        <polygon points="40,5 75,25 75,65 40,85 5,65 5,25" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <circle cx="40" cy="45" r="15" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <line x1="40" y1="30" x2="40" y2="20" stroke="#00DC82" stroke-width="2"/>
                     </svg>
                     <h3>Free Mining</h3>
-                    <p>Mine $CIPH tokens every 6 hours. Real cryptocurrency. No equipment needed. The earlier you join, the more you earn.</p>
+                    <p>Mine $CIPH tokens every 6 hours. Real cryptocurrency powered by blockchain. No equipment needed. The earlier you join, the more you earn through our halving mechanism.</p>
                 </div>
                 <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 60 60">
-                        <rect x="10" y="20" width="40" height="30" rx="3" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <circle cx="30" cy="35" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <line x1="30" y1="10" x2="30" y2="20" stroke="#00DC82" stroke-width="2"/>
+                    <span class="feature-number">02</span>
+                    <svg class="feature-icon" viewBox="0 0 80 80">
+                        <rect x="15" y="25" width="50" height="40" rx="3" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <circle cx="40" cy="45" r="12" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <path d="M40,38 L40,52 M34,45 L46,45" stroke="#00DC82" stroke-width="2"/>
+                        <line x1="40" y1="15" x2="40" y2="25" stroke="#00DC82" stroke-width="2"/>
+                        <circle cx="40" cy="12" r="5" fill="none" stroke="#00DC82" stroke-width="2"/>
                     </svg>
-                    <h3>KYC Protection</h3>
-                    <p>We verify humans, not identities. KYC keeps bots and farms out. Your coins stay safe from fake accounts.</p>
+                    <h3>KYC Shield</h3>
+                    <p>We verify humans, not identities. Advanced KYC keeps bots and farms out while preserving your privacy. Your coins stay protected from fake accounts and manipulation.</p>
                 </div>
                 <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 60 60">
-                        <circle cx="30" cy="30" r="20" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <path d="M20,30 L27,37 L40,24" fill="none" stroke="#00DC82" stroke-width="2"/>
+                    <span class="feature-number">03</span>
+                    <svg class="feature-icon" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <path d="M25,40 L35,50 L55,30" fill="none" stroke="#00DC82" stroke-width="3"/>
                     </svg>
-                    <h3>Community Voting</h3>
-                    <p>You decide when we list. 1 human = 1 vote. No whales controlling the future. True decentralization.</p>
+                    <h3>DAO Voting</h3>
+                    <p>You decide when we list. One human equals one vote. No whales controlling the future. True decentralization where the community shapes every major decision.</p>
                 </div>
                 <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 60 60">
-                        <polygon points="30,5 55,20 55,50 30,65 5,50 5,20" fill="none" stroke="#F0B429" stroke-width="2"/>
-                        <text x="30" y="40" text-anchor="middle" fill="#F0B429" font-size="16">$</text>
+                    <span class="feature-number">04</span>
+                    <svg class="feature-icon" viewBox="0 0 80 80">
+                        <polygon points="40,5 75,25 75,65 40,85 5,65 5,25" fill="none" stroke="#F0B429" stroke-width="2"/>
+                        <path d="M30,35 L50,35 L55,45 L40,60 L25,45 Z" fill="none" stroke="#F0B429" stroke-width="2"/>
                     </svg>
                     <h3>Raid System</h3>
-                    <p>Attack other players and steal their coins. Use energy wisely. Strategy meets crypto gaming.</p>
+                    <p>Strategic gameplay meets crypto economics. Attack other players, defend your vault, and compete for dominance. Use energy wisely to maximize your gains.</p>
                 </div>
                 <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 60 60">
-                        <rect x="8" y="15" width="44" height="35" rx="3" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <line x1="8" y1="25" x2="52" y2="25" stroke="#00DC82" stroke-width="2"/>
-                        <line x1="20" y1="35" x2="40" y2="35" stroke="#00DC82" stroke-width="1"/>
-                        <line x1="20" y1="42" x2="35" y2="42" stroke="#00DC82" stroke-width="1"/>
+                    <span class="feature-number">05</span>
+                    <svg class="feature-icon" viewBox="0 0 80 80">
+                        <rect x="10" y="20" width="60" height="45" rx="3" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <line x1="10" y1="35" x2="70" y2="35" stroke="#00DC82" stroke-width="2"/>
+                        <rect x="20" y="45" width="40" height="10" rx="2" fill="none" stroke="#00DC82" stroke-width="1"/>
                     </svg>
                     <h3>Transparent</h3>
-                    <p>65% of all tokens go to you. All wallets public on BscScan. Team tokens locked for 3 years. Verify everything.</p>
+                    <p>65% of all tokens go to the community. All wallets are public on BscScan. Team tokens locked for 3 years with transparent vesting. Verify everything yourself.</p>
                 </div>
                 <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 60 60">
-                        <circle cx="20" cy="30" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <circle cx="40" cy="30" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <line x1="28" y1="30" x2="32" y2="30" stroke="#00DC82" stroke-width="2"/>
-                        <path d="M15,18 L15,12 L25,12" fill="none" stroke="#00DC82" stroke-width="2"/>
-                        <path d="M45,42 L45,48 L35,48" fill="none" stroke="#00DC82" stroke-width="2"/>
+                    <span class="feature-number">06</span>
+                    <svg class="feature-icon" viewBox="0 0 80 80">
+                        <circle cx="25" cy="40" r="12" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <circle cx="55" cy="40" r="12" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <line x1="37" y1="40" x2="43" y2="40" stroke="#00DC82" stroke-width="2"/>
+                        <path d="M18,25 L18,18 L32,18" fill="none" stroke="#00DC82" stroke-width="2"/>
+                        <path d="M62,55 L62,62 L48,62" fill="none" stroke="#00DC82" stroke-width="2"/>
                     </svg>
-                    <h3>P2P Marketplace</h3>
-                    <p>Trade items and resources with other players. No middlemen. Peer-to-peer economy powered by $CIPH.</p>
+                    <h3>P2P Market</h3>
+                    <p>Trade items and resources directly with other players. No middlemen, no fees to centralized exchanges. Pure peer-to-peer economy powered by $CIPH.</p>
                 </div>
             </div>
         </div>
@@ -449,117 +958,230 @@
 
     <section class="tokenomics" id="tokenomics">
         <div class="container">
-            <h2>$CIPH Tokenomics</h2>
-            <p class="subtitle">21,000,000,000 tokens. Fixed forever. No inflation. No surprises.</p>
+            <div class="section-header">
+                <h2>$CIPH Tokenomics</h2>
+                <p>Fixed supply. No inflation. Mathematical certainty.</p>
+            </div>
+            <div class="total-supply">
+                <span class="big-number">21,000,000,000</span>
+                <p class="label">Total Supply — Fixed Forever</p>
+            </div>
             <div class="token-info">
                 <div class="token-stat">
-                    <div class="value">55%</div>
-                    <div class="label">Mining & Rewards Pool</div>
+                    <span class="value">55%</span>
+                    <span class="label">Miners Pool</span>
                 </div>
                 <div class="token-stat">
-                    <div class="value">10%</div>
-                    <div class="label">Missions & Daily Rewards</div>
+                    <span class="value">10%</span>
+                    <span class="label">Rewards Pool</span>
                 </div>
                 <div class="token-stat">
-                    <div class="value">15%</div>
-                    <div class="label">Team (3-year vesting)</div>
+                    <span class="value">15%</span>
+                    <span class="label">Team (3yr Lock)</span>
                 </div>
                 <div class="token-stat">
-                    <div class="value">10%</div>
-                    <div class="label">DEX Liquidity</div>
+                    <span class="value">10%</span>
+                    <span class="label">DEX Liquidity</span>
                 </div>
                 <div class="token-stat">
-                    <div class="value">5%</div>
-                    <div class="label">Reserve</div>
+                    <span class="value">5%</span>
+                    <span class="label">Reserve</span>
                 </div>
                 <div class="token-stat">
-                    <div class="value">5%</div>
-                    <div class="label">Marketing</div>
+                    <span class="value">5%</span>
+                    <span class="label">Marketing</span>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="founders" id="team">
-        <h2>The Team</h2>
-        <p class="subtitle">Three who saw the system from inside. Banks. Corporations. Lies. Now they build different.</p>
-        <div class="founders-grid">
-            <div class="founder">
-                <svg class="founder-icon" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <text x="50" y="58" text-anchor="middle" fill="#00DC82" font-size="24">0</text>
-                </svg>
-                <h3>ZERO</h3>
+        <div class="container">
+            <div class="section-header">
+                <h2>The Founders</h2>
+                <p>Three who saw the system from inside. Banks. Corporations. Lies. Now they build different.</p>
             </div>
-            <div class="founder">
-                <svg class="founder-icon" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <text x="50" y="58" text-anchor="middle" fill="#00DC82" font-size="18">G</text>
-                </svg>
-                <h3>GHOST</h3>
-            </div>
-            <div class="founder">
-                <svg class="founder-icon" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <text x="50" y="58" text-anchor="middle" fill="#00DC82" font-size="18">V</text>
-                </svg>
-                <h3>VECTOR</h3>
+            <div class="founders-grid">
+                <div class="founder">
+                    <div class="founder-icon-container">
+                        <div class="founder-ring"></div>
+                        <div class="founder-ring"></div>
+                        <div class="founder-ring"></div>
+                        <span class="founder-symbol">0</span>
+                    </div>
+                    <h3>Zero</h3>
+                    <p>The Architect</p>
+                </div>
+                <div class="founder">
+                    <div class="founder-icon-container">
+                        <div class="founder-ring"></div>
+                        <div class="founder-ring"></div>
+                        <div class="founder-ring"></div>
+                        <span class="founder-symbol">G</span>
+                    </div>
+                    <h3>Ghost</h3>
+                    <p>The Phantom</p>
+                </div>
+                <div class="founder">
+                    <div class="founder-icon-container">
+                        <div class="founder-ring"></div>
+                        <div class="founder-ring"></div>
+                        <div class="founder-ring"></div>
+                        <span class="founder-symbol">V</span>
+                    </div>
+                    <h3>Vector</h3>
+                    <p>The Engineer</p>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
+        <div class="footer-logo">
+            <svg viewBox="0 0 100 100">
+                <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#00DC82" stroke-width="2"/>
+                <polygon points="50,20 80,37.5 80,62.5 50,80 20,62.5 20,37.5" fill="none" stroke="#00DC82" stroke-width="1" opacity="0.5"/>
+                <text x="50" y="58" text-anchor="middle" fill="#00DC82" font-size="20" font-weight="bold">C</text>
+            </svg>
+        </div>
         <div class="social-links">
-            <a href="https://x.com/CiphOfficial" target="_blank">Twitter/X</a>
+            <a href="https://x.com/CiphOfficial" target="_blank">Twitter</a>
             <a href="https://t.me/ciphofficialnews" target="_blank">Telegram</a>
             <a href="https://tiktok.com/@ciphofficial" target="_blank">TikTok</a>
             <a href="https://youtube.com/@CIPHOFFICIAL" target="_blank">YouTube</a>
             <a href="https://instagram.com/ciphofficial" target="_blank">Instagram</a>
-            <a href="https://linktr.ee/ciph.official" target="_blank">All Links</a>
         </div>
-        <p class="copyright">// <span>ZERO</span> // <span>GHOST</span> // <span>VECTOR</span> // Encrypt Your Future</p>
+        <p class="copyright">// <span>ZERO</span> // <span>GHOST</span> // <span>VECTOR</span> //</p>
+        <p class="encrypt-text">ENCRYPT YOUR FUTURE</p>
     </footer>
 
     <script>
-        // Matrix rain effect
+        // Matrix Rain - Only 0 and 1
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const chars = 'CIPHER01アイウエオカキクケコサシスセソ';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = [];
-
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.random() * canvas.height / fontSize;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        resizeCanvas();
 
-        function draw() {
+        const chars = '01';
+        const fontSize = 16;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = [];
+
+        function initDrops() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100;
+            }
+        }
+        initDrops();
+
+        function drawMatrix() {
             ctx.fillStyle = 'rgba(3, 6, 10, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#00DC82';
-            ctx.font = fontSize + 'px monospace';
-
             for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                // Gradient effect - brighter at the head
+                const brightness = Math.min(1, (canvas.height - y) / canvas.height + 0.3);
+                const green = Math.floor(220 * brightness);
+                ctx.fillStyle = `rgba(0, ${green}, 130, ${brightness * 0.8})`;
+                ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
+                ctx.fillText(char, x, y);
+
+                // Add glow effect for some characters
+                if (Math.random() > 0.98) {
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#00DC82';
+                    ctx.fillText(char, x, y);
+                    ctx.shadowBlur = 0;
+                }
+
+                if (y > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         }
 
-        setInterval(draw, 50);
+        setInterval(drawMatrix, 50);
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            resizeCanvas();
+            initDrops();
+        });
+
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Typing effect restart
+        const typingText = document.querySelector('.typing-text');
+        setInterval(() => {
+            typingText.style.animation = 'none';
+            setTimeout(() => {
+                typingText.style.animation = 'typing 4s steps(50, end) infinite';
+            }, 100);
+        }, 8000);
+
+        // Counter animation for stats
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const value = Math.floor(start + (range * progress));
+                element.textContent = value + (element.dataset.suffix || '');
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .token-stat, .founder').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
         });
     </script>
 </body>
